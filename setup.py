@@ -8,5 +8,6 @@ setup(name='parsing_helper',
       install_requires = ['pypdf==3.12.2','beautifulsoup4','fpdf'],
       packages=['parsing_helper'],
       package_data={'parsing_helper':['fonts/arial.ttf','fonts/SIMYOU.TTF']}
+      ,include_package_data=True
       #py_modules = ['parsing_helper']
       )
