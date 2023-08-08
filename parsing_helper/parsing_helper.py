@@ -28,7 +28,8 @@ def get_links(url:str, vis:set)->list:
     for link in links:
         link = link.get('href')
         if link not in vis:
-            res.append(link)
+            if link.find('http')!=-1:
+                res.append(link)
             vis.add(link)
     return res
 
@@ -74,9 +75,10 @@ def _convert_string_to_pdf(elements, output_file:str, language:str = 'ch'):
     pdf = FPDF()
     pdf.add_page()
     if language == 'ch':
-        pdf.add_font('SIMYOU','','SIMYOU.ttf',True)
+        pdf.add_font('SIMYOU','','fonts/SIMYOU.ttf',True)
         pdf.set_font("SIMYOU",size=10)
     else:
+        pdf.add_font("Arial",'', 'fonts/arial.ttf', uni=True)
         pdf.set_font("Arial", size=10)
     
     effective_page_width = pdf.w - 2*pdf.l_margin
@@ -84,7 +86,8 @@ def _convert_string_to_pdf(elements, output_file:str, language:str = 'ch'):
     for element in elements:
         if element:
             element=element.text.strip()
-            pdf.multi_cell(effective_page_width, 0.15, element)
+            pdf.multi_cell(effective_page_width, 5, element)
+            pdf.ln(5)
             #pdf.cell(0,5, txt=element,ln=2,align='C')
     pdf.output(output_file)
 
